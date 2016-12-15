@@ -24,11 +24,11 @@ class form1 : public QMainWindow
 {
 	Q_OBJECT
 
-	QString t;//Аргумент функции
+	QString t;//РђСЂРіСѓРјРµРЅС‚ С„СѓРЅРєС†РёРё
 
-	QGridLayout* ptrQGL;//Указатель на QGridLayout для ввода системы уравнений
+	QGridLayout* ptrQGL;//РЈРєР°Р·Р°С‚РµР»СЊ РЅР° QGridLayout РґР»СЏ РІРІРѕРґР° СЃРёСЃС‚РµРјС‹ СѓСЂР°РІРЅРµРЅРёР№
 
-	size_t EquationCount;//Количество уравнений
+	size_t EquationCount;//РљРѕР»РёС‡РµСЃС‚РІРѕ СѓСЂР°РІРЅРµРЅРёР№
 	//xi'(t)=F(t,x1,...,xn)	xi(t0)=xi0
 	std::vector<QLineEdit*> vptrQLE1;//xi
 	std::vector<QLabel*> vptrQL1;//'(
@@ -47,13 +47,24 @@ public:
 private:
 	Ui::integrationClass ui;
 private slots:
-	void AddEquation();//Добавить уравнение
-	void DelEquation();//Удалить уравнение
-	void sett(const QString& t_str);//Изменить t
-	void calculate();//Вычислить
+	void AddEquation();//Р”РѕР±Р°РІРёС‚СЊ СѓСЂР°РІРЅРµРЅРёРµ
+	void DelEquation();//РЈРґР°Р»РёС‚СЊ СѓСЂР°РІРЅРµРЅРёРµ
+	void sett(const QString& t_str);//РР·РјРµРЅРёС‚СЊ t
+	void calculate();//Р’С‹С‡РёСЃР»РёС‚СЊ
 
 signals:
-	void tChanged(const QString& );//t изменено слотом sett, необходимо обновить Edit-ы и label-ы
+	void tChanged(const QString& );//t РёР·РјРµРЅРµРЅРѕ СЃР»РѕС‚РѕРј sett, РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РЅРѕРІРёС‚СЊ Edit-С‹ Рё label-С‹
+
+};
+
+#endif // INTEGRATION_H
+
+	void DelEquation();//Г“Г¤Г Г«ГЁГІГј ГіГ°Г ГўГ­ГҐГ­ГЁГҐ
+	void sett(const QString& t_str);//Г€Г§Г¬ГҐГ­ГЁГІГј t
+	void calculate();//Г‚Г»Г·ГЁГ±Г«ГЁГІГј
+
+signals:
+	void tChanged(const QString& );//t ГЁГ§Г¬ГҐГ­ГҐГ­Г® Г±Г«Г®ГІГ®Г¬ sett, Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® Г®ГЎГ­Г®ГўГЁГІГј Edit-Г» ГЁ label-Г»
 
 };
 
