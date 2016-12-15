@@ -11,8 +11,8 @@ public:
 	strValidator(QObject* parent) :QValidator(parent) {}
 	virtual State validate(QString& str, int& pos) const override
 	{
-		QRegExp rxp = QRegExp("[\\w]*");//¡ÛÍ‚˚, ˆËÙ˚ Ë ÁÌ‡ÍË ÔÓ‰˜∏ÍË‚‡ÌËˇ
-		if (rxp.exactMatch(str))//“Ó˜ÌÓÂ ÒÓÓÚ‚ÂÚÒÚ‚ËÂ
+		QRegExp rxp = QRegExp("[\\w]*");//–ë—É–∫–≤—ã, —Ü–∏—Ñ—Ä—ã –∏ –∑–Ω–∞–∫–∏ –ø–æ–¥—á—ë—Ä–∫–∏–≤–∞–Ω–∏—è
+		if (rxp.exactMatch(str))//–¢–æ—á–Ω–æ–µ —Å–æ–æ—Ç–≤–µ—Ç—Å—Ç–≤–∏–µ
 			return Acceptable;
 		else return Invalid;
 	}
@@ -25,21 +25,21 @@ form1::form1(QWidget *parent)
 	ui.setupUi(this);
 
 	
-	//QTextCodec *codec = QTextCodec::codecForName(QString("Windows-1251").toUtf8());// ¬˚·Ó ÍÓ‰ÂÍ‡
-	//ui.comboBox->addItem(codec->toUnicode("ÃÂÚÓ‰ –ÛÌ„Â- ÛÚÚ˚"));
-	//ui.comboBox->addItem(codec->toUnicode("ÃÂÚÓ‰ ›ÈÎÂ‡"));
+	//QTextCodec *codec = QTextCodec::codecForName(QString("Windows-1251").toUtf8());// –í—ã–±–æ—Ä –∫–æ–¥–µ–∫–∞
+	//ui.comboBox->addItem(codec->toUnicode("–ú–µ—Ç–æ–¥ –†—É–Ω–≥–µ-–ö—É—Ç—Ç—ã"));
+	//ui.comboBox->addItem(codec->toUnicode("–ú–µ—Ç–æ–¥ –≠–π–ª–µ—Ä–∞"));
 
-	//ui.comboBox->addItem(QString::fromWCharArray(L"ÃÂÚÓ‰ –ÛÌ„Â- ÛÚÚ˚"));
-	//ui.comboBox->addItem(QString::fromWCharArray(L"ÃÂÚÓ‰ ›ÈÎÂ‡"));
+	//ui.comboBox->addItem(QString::fromWCharArray(L"–ú–µ—Ç–æ–¥ –†—É–Ω–≥–µ-–ö—É—Ç—Ç—ã"));
+	//ui.comboBox->addItem(QString::fromWCharArray(L"–ú–µ—Ç–æ–¥ –≠–π–ª–µ—Ä–∞"));
 
-	//ui.comboBox->addItem(tr(QString::fromWCharArray(L"ÃÂÚÓ‰ –ÛÌ„Â- ÛÚÚ˚").toUtf8()));
-	//ui.comboBox->addItem(tr(QString::fromWCharArray(L"ÃÂÚÓ‰ ›ÈÎÂ‡").toUtf8()));
+	//ui.comboBox->addItem(tr(QString::fromWCharArray(L"–ú–µ—Ç–æ–¥ –†—É–Ω–≥–µ-–ö—É—Ç—Ç—ã").toUtf8()));
+	//ui.comboBox->addItem(tr(QString::fromWCharArray(L"–ú–µ—Ç–æ–¥ –≠–π–ª–µ—Ä–∞").toUtf8()));
 	
 	auto trUnicode = [](const wchar_t* string) {return tr(QString::fromWCharArray(string).toUtf8()); };
-	ui.comboBox->addItem(trUnicode(L"ÃÂÚÓ‰ –ÛÌ„Â- ÛÚÚ˚"));
-	ui.comboBox->addItem(trUnicode(L"ÃÂÚÓ‰ ›ÈÎÂ‡"));
+	ui.comboBox->addItem(trUnicode(L"–ú–µ—Ç–æ–¥ –†—É–Ω–≥–µ-–ö—É—Ç—Ç—ã"));
+	ui.comboBox->addItem(trUnicode(L"–ú–µ—Ç–æ–¥ –≠–π–ª–µ—Ä–∞"));
 
-	//œÓ‚ÂÍ‡ ‚‚Ó‰‡ ‰Îˇ ¯‡„‡, t0 Ë tk
+	//–ü—Ä–æ–≤–µ—Ä–∫–∞ –≤–≤–æ–¥–∞ –¥–ª—è —à–∞–≥–∞, t0 –∏ tk
 	ui.lineEdit->setValidator(new QDoubleValidator(ui.lineEdit));
 	ui.lineEdit_2->setValidator(new QDoubleValidator(ui.lineEdit_2));
 	ui.lineEdit_3->setValidator(new QDoubleValidator(ui.lineEdit_3));
@@ -52,25 +52,25 @@ form1::form1(QWidget *parent)
 	ptrDW->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	
-	connect(ui.pushButton, &QPushButton::clicked, this, &form1::AddEquation);//ƒÓ·‡‚ËÚ¸ Û‡‚ÌÂÌËÂ
-	connect(ui.pushButton_2, &QPushButton::clicked, this, &form1::DelEquation);//”‰‡ÎËÚ¸ Û‡‚ÌÂÌËÂ
-	connect(ui.pushButton_3, &QPushButton::clicked, this, &form1::calculate);//¬˚˜ËÒÎËÚ¸
-	//œË ËÁÏÂÌÂÌËË ‡„ÛÏÂÌÚ‡ (string t) Ó·ÌÓ‚ËÚ¸ label-˚ t0 Ë tk
+	connect(ui.pushButton, &QPushButton::clicked, this, &form1::AddEquation);//–î–æ–±–∞–≤–∏—Ç—å —É—Ä–∞–≤–Ω–µ–Ω–∏–µ
+	connect(ui.pushButton_2, &QPushButton::clicked, this, &form1::DelEquation);//–£–¥–∞–ª–∏—Ç—å —É—Ä–∞–≤–Ω–µ–Ω–∏–µ
+	connect(ui.pushButton_3, &QPushButton::clicked, this, &form1::calculate);//–í—ã—á–∏—Å–ª–∏—Ç—å
+	//–ü—Ä–∏ –∏–∑–º–µ–Ω–µ–Ω–∏–∏ –∞—Ä–≥—É–º–µ–Ω—Ç–∞ (string t) –æ–±–Ω–æ–≤–∏—Ç—å label-—ã t0 –∏ tk
 	connect(this, &form1::tChanged, [ptrQL = ui.label_3](const QString& str) {
 		ptrQL->setText(str + R"(<span style=" vertical-align:sub;">0</span>)"); });
 	connect(this, &form1::tChanged, [ptrQL = ui.label_4](const QString& str) {
 		ptrQL->setText(str + R"(<span style=" vertical-align:sub;">k</span>)"); });
 
-	//resize(1000,700);//«‡‰‡Ú¸ ‡ÁÏÂ ÙÓÏ˚
+	//resize(1000,700);//–ó–∞–¥–∞—Ç—å —Ä–∞–∑–º–µ—Ä —Ñ–æ—Ä–º—ã
 
-	//«Ì‡˜ÂÌËˇ ÔÓ ÛÏÓÎ˜‡ÌË˛ ‰Îˇ ¯‡„‡, t0 Ë tk
-	ui.lineEdit->setText(QLocale().toString(0.01));//ÿ‡„
+	//–ó–Ω–∞—á–µ–Ω–∏—è –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é –¥–ª—è —à–∞–≥–∞, t0 –∏ tk
+	ui.lineEdit->setText(QLocale().toString(0.01));//–®–∞–≥
 	ui.lineEdit_2->setText("0");//t0
 	ui.lineEdit_3->setText("10");//tk
 
-	AddEquation();//ƒÓ·‡‚ËÚ¸ 1-ÓÂ Û‡‚ÌÂÌËÂ
+	AddEquation();//–î–æ–±–∞–≤–∏—Ç—å 1-–æ–µ —É—Ä–∞–≤–Ω–µ–Ω–∏–µ
 
-	//¬‚ÂÒÚË ‚ Edit-˚ ÚÂÒÚÓ‚˚È ÔËÏÂ
+	//–í–≤–µ—Å—Ç–∏ –≤ Edit-—ã —Ç–µ—Å—Ç–æ–≤—ã–π –ø—Ä–∏–º–µ—Ä
 	sett("t");
 	vptrQLE1[0]->setText("x1");
 	vptrQLE3[0]->setText("2*sin(-x2/(t+1))^2");
@@ -91,7 +91,7 @@ form1::~form1()
 
 void form1::AddEquation()
 {
-	//—ÓÁ‰‡ÌËÂ label-Ó‚ Ë edit-Ó‚ ‰Îˇ ‚‚Ó‰‡ Û‡‚ÌÂÌËˇ
+	//–°–æ–∑–¥–∞–Ω–∏–µ label-–æ–≤ –∏ edit-–æ–≤ –¥–ª—è –≤–≤–æ–¥–∞ —É—Ä–∞–≤–Ω–µ–Ω–∏—è
 	QLineEdit* ptrQLE1 = new QLineEdit();
 	ptrQGL->addWidget(ptrQLE1, EquationCount, 0);
 	vptrQLE1.push_back(ptrQLE1);
@@ -125,15 +125,15 @@ void form1::AddEquation()
 	ptrQLE4->setValidator(new QDoubleValidator(ptrQLE4));
 	ptrQLE4->setMaximumWidth(50);
 	ptrQLE4->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-	++EquationCount;//»ÌÍÂÏÂÌÚ Ò˜∏Ú˜ËÍ‡ ÍÓÎË˜ÂÒÚ‚‡ Û‡‚ÌÂÌËÈ
+	++EquationCount;//–ò–Ω–∫—Ä–µ–º–µ–Ω—Ç —Å—á—ë—Ç—á–∏–∫–∞ –∫–æ–ª–∏—á–µ—Å—Ç–≤–∞ —É—Ä–∞–≤–Ω–µ–Ω–∏–π
 	
-	//œË ËÁÏÂÌÂÌËË t Ó·ÌÓ‚ËÚ¸ edit-˚ Ë label-˚
+	//–ü—Ä–∏ –∏–∑–º–µ–Ω–µ–Ω–∏–∏ t –æ–±–Ω–æ–≤–∏—Ç—å edit-—ã –∏ label-—ã
 	connect(ptrQLE2, &QLineEdit::textChanged, this, &form1::sett);
 	connect(this, &form1::tChanged, ptrQLE2, &QLineEdit::setText);
 	connect(ptrQLE1, &QLineEdit::textChanged, [ptrQL3](const QString& str) {
 		ptrQL3->setText(str+R"(<span style=" vertical-align:sub;">0</span>=)"); });
 
-	// ÌÓÔÍ‡ "Û‰‡ÎËÚ¸ Û‡‚ÌÂÌËÂ" ‰ÓÒÚÛÔÌ‡ ÚÓÎ¸ÍÓ ÂÒÎË ‚ ÒËÒÚÂÏÂ ·ÓÎ¸¯Â Ó‰ÌÓ„Ó Û‡‚ÌÂÌËˇ
+	//–ö–Ω–æ–ø–∫–∞ "—É–¥–∞–ª–∏—Ç—å —É—Ä–∞–≤–Ω–µ–Ω–∏–µ" –¥–æ—Å—Ç—É–ø–Ω–∞ —Ç–æ–ª—å–∫–æ –µ—Å–ª–∏ –≤ —Å–∏—Å—Ç–µ–º–µ –±–æ–ª—å—à–µ –æ–¥–Ω–æ–≥–æ —É—Ä–∞–≤–Ω–µ–Ω–∏—è
 	if (EquationCount > 1) ui.pushButton_2->setEnabled(true);
 	else ui.pushButton_2->setEnabled(false);
 
@@ -167,7 +167,7 @@ void form1::DelEquation()
 
 void form1::sett(const QString& t_str)
 {
-	if (this->t != t_str)//≈ÒÎË t ËÁÏÂÌËÎÓÒ¸
+	if (this->t != t_str)//–ï—Å–ª–∏ t –∏–∑–º–µ–Ω–∏–ª–æ—Å—å
 	{
 		this->t = t_str;
 		emit tChanged(t);
@@ -177,22 +177,22 @@ void form1::calculate()
 {
 	try
 	{
-	//Ã‡ÒÒË‚ {x1, x2, ..., xn}
+	//–ú–∞—Å—Å–∏–≤ {x1, x2, ..., xn}
 	std::vector<std::string> vvarstr(EquationCount);
 	for (size_t i = 0; i < EquationCount; ++i)
 		vvarstr[i] = vptrQLE1[i]->text().toStdString();
 
-	//Ã‡ÒÒË‚ {t, x1, x2, ..., xn}
+	//–ú–∞—Å—Å–∏–≤ {t, x1, x2, ..., xn}
 	std::vector<std::string> vtvarstr(EquationCount+1);
 	vtvarstr[0] = t.toStdString();
 	std::copy(vvarstr.cbegin(), vvarstr.cend(), vtvarstr.begin() + 1);
 
-	//Ã‡ÒÒË‚ {x1(t0), x2(t0), ..., xn(t0)}
+	//–ú–∞—Å—Å–∏–≤ {x1(t0), x2(t0), ..., xn(t0)}
 	std::vector<long double> vvar0(EquationCount);
 	for (size_t i = 0; i < EquationCount; ++i)
 		vvar0[i] = vptrQLE4[i]->text().toDouble();
 
-	//Ã‡ÒÒË‚ {F1(t, x1, ..., xn), ..., Fn(t, x1, ..., xn)}
+	//–ú–∞—Å—Å–∏–≤ {F1(t, x1, ..., xn), ..., Fn(t, x1, ..., xn)}
 	integration::vF_t<long double> vF(EquationCount);
 	for (size_t i = 0; i < EquationCount; ++i)
 	{
@@ -201,7 +201,7 @@ void form1::calculate()
 			= make_function(vptrQLE3[i]->text().toStdString(), vtvarstr);
 		vF[i]=[F=std::move(Fi)](const long double t, const std::vector<long double>& var)
 		{
-			//Ã‡ÒÒË‚ {tj, x1(tj), x2(tj), ..., xn(tj)}
+			//–ú–∞—Å—Å–∏–≤ {tj, x1(tj), x2(tj), ..., xn(tj)}
 			std::vector<long double> vtvar(var.size() + 1);
 			vtvar[0] = t;
 			std::copy(var.cbegin(), var.cend(), vtvar.begin() + 1);
@@ -210,7 +210,7 @@ void form1::calculate()
 		};
 	}
 
-	//ÃÂÚÓ‰
+	//–ú–µ—Ç–æ–¥
 	integration::method_t<long double> method;
 	switch (ui.comboBox->currentIndex())
 	{
@@ -221,7 +221,7 @@ void form1::calculate()
 		method = integration::EulerMethod<long double>;
 		break;
 	default:
-		throw std::invalid_argument("ÕÂËÁ‚ÂÒÚÌ˚È ÏÂÚÓ‰ ËÌÚÂ„ËÓ‚‡ÌËˇ");
+		throw std::invalid_argument("–ù–µ–∏–∑–≤–µ—Å—Ç–Ω—ã–π –º–µ—Ç–æ–¥ –∏–Ω—Ç–µ–≥—Ä–∏—Ä–æ–≤–∞–Ω–∏—è");
 		break;
 	}
 
@@ -284,17 +284,268 @@ void DrawWidget::paintEvent(QPaintEvent *pe)
 	}
 
 	QPainter QP(this);
-	//QP.save();//—Óı‡ÌËÚ¸ Ì‡ÒÚÓÈÍË painter
-	QP.setRenderHint(QPainter::Antialiasing, true);//¬ÍÎ˛˜ËÚ¸ Ò„Î‡ÊË‚‡ÌËÂ
-	QP.setPen(QPen(Qt::red, 0, Qt::SolidLine));//œÂÓ
+	//QP.save();//–°–æ—Ö—Ä–∞–Ω–∏—Ç—å –Ω–∞—Å—Ç—Ä–æ–π–∫–∏ painter
+	QP.setRenderHint(QPainter::Antialiasing, true);//–í–∫–ª—é—á–∏—Ç—å —Å–≥–ª–∞–∂–∏–≤–∞–Ω–∏–µ
+	QP.setPen(QPen(Qt::red, 0, Qt::SolidLine));//–ü–µ—Ä–æ
 	
-	QP.scale(this->width() / (xmax - xmin), this->height() / (ymax - ymin));//Ã‡Ò¯Ú‡·ËÓ‚‡ÌËÂ
-	QP.translate(-xmin, ymax);//œÂÂÏÂ˘ÂÌËÂ
+	QP.scale(this->width() / (xmax - xmin), this->height() / (ymax - ymin));//–ú–∞—Å—à—Ç–∞–±–∏—Ä–æ–≤–∞–Ω–∏–µ
+	QP.translate(-xmin, ymax);//–ü–µ—Ä–µ–º–µ—â–µ–Ω–∏–µ
 
 	for (const auto& pointarray : DataPoint)
 		QP.drawPolyline(pointarray, data[0].size());
 	
-	//QP.restore();//¬ÓÒÒÚ‡ÌÓ‚ËÚ¸ Ì‡ÒÚÓÈÍË painter
+	//QP.restore();//–í–æ—Å—Å—Ç–∞–Ω–æ–≤–∏—Ç—å –Ω–∞—Å—Ç—Ä–æ–π–∫–∏ painter
+
+	for (size_t i = 0; i < DataPoint.size(); ++i)
+		delete[] DataPoint[i];
+}
+	ui.horizontalLayout_3->addWidget(ptrDW);
+	ptrDW->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+	
+	connect(ui.pushButton, &QPushButton::clicked, this, &form1::AddEquation);//√Ñ√Æ√°√†√¢√®√≤√º √≥√∞√†√¢√≠√•√≠√®√•
+	connect(ui.pushButton_2, &QPushButton::clicked, this, &form1::DelEquation);//√ì√§√†√´√®√≤√º √≥√∞√†√¢√≠√•√≠√®√•
+	connect(ui.pushButton_3, &QPushButton::clicked, this, &form1::calculate);//√Ç√ª√∑√®√±√´√®√≤√º
+	//√è√∞√® √®√ß√¨√•√≠√•√≠√®√® √†√∞√£√≥√¨√•√≠√≤√† (string t) √Æ√°√≠√Æ√¢√®√≤√º label-√ª t0 √® tk
+	connect(this, &form1::tChanged, [ptrQL = ui.label_3](const QString& str) {
+		ptrQL->setText(str + R"(<span style=" vertical-align:sub;">0</span>)"); });
+	connect(this, &form1::tChanged, [ptrQL = ui.label_4](const QString& str) {
+		ptrQL->setText(str + R"(<span style=" vertical-align:sub;">k</span>)"); });
+
+	//resize(1000,700);//√á√†√§√†√≤√º √∞√†√ß√¨√•√∞ √¥√Æ√∞√¨√ª
+
+	//√á√≠√†√∑√•√≠√®√ø √Ø√Æ √≥√¨√Æ√´√∑√†√≠√®√æ √§√´√ø √∏√†√£√†, t0 √® tk
+	ui.lineEdit->setText(QLocale().toString(0.01));//√ò√†√£
+	ui.lineEdit_2->setText("0");//t0
+	ui.lineEdit_3->setText("10");//tk
+
+	AddEquation();//√Ñ√Æ√°√†√¢√®√≤√º 1-√Æ√• √≥√∞√†√¢√≠√•√≠√®√•
+
+	//√Ç√¢√•√±√≤√® √¢ Edit-√ª √≤√•√±√≤√Æ√¢√ª√© √Ø√∞√®√¨√•√∞
+	sett("t");
+	vptrQLE1[0]->setText("x1");
+	vptrQLE3[0]->setText("2*sin(-x2/(t+1))^2");
+	vptrQLE4[0]->setText("7");
+	AddEquation();
+	vptrQLE1[1]->setText("x2");
+	vptrQLE3[1]->setText("1.5*cos(x1)*t");
+	vptrQLE4[1]->setText("3");
+
+	
+	
+}
+
+form1::~form1()
+{
+
+}
+
+void form1::AddEquation()
+{
+	//√ë√Æ√ß√§√†√≠√®√• label-√Æ√¢ √® edit-√Æ√¢ √§√´√ø √¢√¢√Æ√§√† √≥√∞√†√¢√≠√•√≠√®√ø
+	QLineEdit* ptrQLE1 = new QLineEdit();
+	ptrQGL->addWidget(ptrQLE1, EquationCount, 0);
+	vptrQLE1.push_back(ptrQLE1);
+	ptrQLE1->setValidator(new strValidator(ptrQLE1));
+	ptrQLE1->setMaxLength(2);
+	ptrQLE1->setMaximumWidth(20);
+	ptrQLE1->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	QLabel* ptrQL1 = new QLabel("'(");
+	ptrQGL->addWidget(ptrQL1, EquationCount, 1);
+	vptrQL1.push_back(ptrQL1);
+	QLineEdit* ptrQLE2 = new QLineEdit(t);
+	ptrQGL->addWidget(ptrQLE2, EquationCount, 2);
+	vptrQLE2.push_back(ptrQLE2);
+	ptrQLE2->setValidator(new strValidator(ptrQLE2));
+	ptrQLE2->setMaxLength(2);
+	ptrQLE2->setMaximumWidth(20);
+	ptrQLE2->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	QLabel* ptrQL2 = new QLabel(")=");
+	ptrQGL->addWidget(ptrQL2, EquationCount, 3);
+	vptrQL2.push_back(ptrQL2);
+	QLineEdit* ptrQLE3 = new QLineEdit();
+	ptrQGL->addWidget(ptrQLE3, EquationCount, 4);
+	vptrQLE3.push_back(ptrQLE3);
+	ptrQLE3->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	QLabel* ptrQL3 = new QLabel(R"(_<span style=" vertical-align:sub;">0</span>=)");
+	ptrQGL->addWidget(ptrQL3, EquationCount, 5);
+	vptrQL3.push_back(ptrQL3);
+	QLineEdit* ptrQLE4 = new QLineEdit();
+	ptrQGL->addWidget(ptrQLE4, EquationCount, 6);
+	vptrQLE4.push_back(ptrQLE4);
+	ptrQLE4->setValidator(new QDoubleValidator(ptrQLE4));
+	ptrQLE4->setMaximumWidth(50);
+	ptrQLE4->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	++EquationCount;//√à√≠√™√∞√•√¨√•√≠√≤ √±√∑¬∏√≤√∑√®√™√† √™√Æ√´√®√∑√•√±√≤√¢√† √≥√∞√†√¢√≠√•√≠√®√©
+	
+	//√è√∞√® √®√ß√¨√•√≠√•√≠√®√® t √Æ√°√≠√Æ√¢√®√≤√º edit-√ª √® label-√ª
+	connect(ptrQLE2, &QLineEdit::textChanged, this, &form1::sett);
+	connect(this, &form1::tChanged, ptrQLE2, &QLineEdit::setText);
+	connect(ptrQLE1, &QLineEdit::textChanged, [ptrQL3](const QString& str) {
+		ptrQL3->setText(str+R"(<span style=" vertical-align:sub;">0</span>=)"); });
+
+	//√ä√≠√Æ√Ø√™√† "√≥√§√†√´√®√≤√º √≥√∞√†√¢√≠√•√≠√®√•" √§√Æ√±√≤√≥√Ø√≠√† √≤√Æ√´√º√™√Æ √•√±√´√® √¢ √±√®√±√≤√•√¨√• √°√Æ√´√º√∏√• √Æ√§√≠√Æ√£√Æ √≥√∞√†√¢√≠√•√≠√®√ø
+	if (EquationCount > 1) ui.pushButton_2->setEnabled(true);
+	else ui.pushButton_2->setEnabled(false);
+
+	//ui.gridLayout->setMargin(10);
+	//ui.gridLayout->setSpacing(10);
+	//ui.gridLayout->setRowMinimumHeight(5, 10);
+}
+void form1::DelEquation()
+{
+	if (EquationCount>1)
+	{
+		delete vptrQLE1.back();
+		vptrQLE1.pop_back();
+		delete vptrQL1.back();
+		vptrQL1.pop_back();
+		delete vptrQLE2.back();
+		vptrQLE2.pop_back();
+		delete vptrQL2.back();
+		vptrQL2.pop_back();
+		delete vptrQLE3.back();
+		vptrQLE3.pop_back();
+		delete vptrQL3.back();
+		vptrQL3.pop_back();
+		delete vptrQLE4.back();
+		vptrQLE4.pop_back();
+		--EquationCount;
+	}
+	if (EquationCount == 1) ui.pushButton_2->setEnabled(false);
+	else ui.pushButton_2->setEnabled(true);
+}
+
+void form1::sett(const QString& t_str)
+{
+	if (this->t != t_str)//√Ö√±√´√® t √®√ß√¨√•√≠√®√´√Æ√±√º
+	{
+		this->t = t_str;
+		emit tChanged(t);
+	}
+}
+void form1::calculate()
+{
+	try
+	{
+	//√å√†√±√±√®√¢ {x1, x2, ..., xn}
+	std::vector<std::string> vvarstr(EquationCount);
+	for (size_t i = 0; i < EquationCount; ++i)
+		vvarstr[i] = vptrQLE1[i]->text().toStdString();
+
+	//√å√†√±√±√®√¢ {t, x1, x2, ..., xn}
+	std::vector<std::string> vtvarstr(EquationCount+1);
+	vtvarstr[0] = t.toStdString();
+	std::copy(vvarstr.cbegin(), vvarstr.cend(), vtvarstr.begin() + 1);
+
+	//√å√†√±√±√®√¢ {x1(t0), x2(t0), ..., xn(t0)}
+	std::vector<long double> vvar0(EquationCount);
+	for (size_t i = 0; i < EquationCount; ++i)
+		vvar0[i] = vptrQLE4[i]->text().toDouble();
+
+	//√å√†√±√±√®√¢ {F1(t, x1, ..., xn), ..., Fn(t, x1, ..., xn)}
+	integration::vF_t<long double> vF(EquationCount);
+	for (size_t i = 0; i < EquationCount; ++i)
+	{
+		using namespace userfunction;
+		std::shared_ptr<function> Fi
+			= make_function(vptrQLE3[i]->text().toStdString(), vtvarstr);
+		vF[i]=[F=std::move(Fi)](const long double t, const std::vector<long double>& var)
+		{
+			//√å√†√±√±√®√¢ {tj, x1(tj), x2(tj), ..., xn(tj)}
+			std::vector<long double> vtvar(var.size() + 1);
+			vtvar[0] = t;
+			std::copy(var.cbegin(), var.cend(), vtvar.begin() + 1);
+			//Fi(t, x1, ..., xn)
+			return (*F)(vtvar);
+		};
+	}
+
+	//√å√•√≤√Æ√§
+	integration::method_t<long double> method;
+	switch (ui.comboBox->currentIndex())
+	{
+	case 0:
+		method = integration::RungeKuttaMethod<long double>;
+		break;
+	case 1:
+		method = integration::EulerMethod<long double>;
+		break;
+	default:
+		throw std::invalid_argument("√ç√•√®√ß√¢√•√±√≤√≠√ª√© √¨√•√≤√Æ√§ √®√≠√≤√•√£√∞√®√∞√Æ√¢√†√≠√®√ø");
+		break;
+	}
+
+	//
+	std::vector<std::vector<long double>> DataDraw(EquationCount + 1);
+	std::function<void(long double ti, const integration::v_t<long double>& xi)> D
+		= [&DataDraw](long double ti, const std::vector<long double>& xi)
+	{
+		DataDraw[0].push_back(ti);
+		for (size_t i = 0; i < xi.size(); ++i)
+			DataDraw[i + 1].push_back(xi[i]);
+	};
+	
+	long double h = QLocale().toDouble(ui.lineEdit->text());
+	long double t0 = QLocale().toDouble(ui.lineEdit_2->text());
+	long double tk = QLocale().toDouble(ui.lineEdit_3->text());
+
+	if (h <= 0) throw std::invalid_argument("h<=0");
+
+	auto vRez = integration::Cauchy(vF, vvar0, t0, tk, h, method, D);
+
+	std::string strRez;
+	for (size_t i = 0; i < EquationCount; ++i)
+		strRez += vvarstr[i] + "(" + std::to_string(tk) + ")=" + std::to_string(vRez[i]) + "\n";
+	ui.label_5->setText(QString::fromStdString(strRez));
+
+	ptrDW->setData(std::move(DataDraw));
+	ptrDW->update();
+	}
+	catch (std::exception e)
+	{
+		QTextCodec *codec = QTextCodec::codecForName(QString("Windows-1251").toUtf8());
+		(new QErrorMessage(this))->showMessage(codec->toUnicode(e.what()));
+	}
+}
+
+void DrawWidget::paintEvent(QPaintEvent *pe)
+{
+	if (data.empty()) return;
+
+	long double xmin = *std::min_element(data[0].cbegin(), data[0].cend());
+	long double xmax = *std::max_element(data[0].cbegin(), data[0].cend());
+
+	std::vector<long double> yimin(data.size() - 1);
+	std::vector<long double> yimax(data.size() - 1);
+	for (size_t i = 0; i < data.size() - 1; ++i)
+	{
+		yimin[i] = *std::min_element(data[i + 1].cbegin(), data[i + 1].cend());
+		yimax[i] = *std::max_element(data[i + 1].cbegin(), data[i + 1].cend());
+	}
+	long double ymin = *std::min_element(yimin.cbegin(), yimin.cend());
+	long double ymax = *std::max_element(yimax.cbegin(), yimax.cend());
+
+	std::vector<QPointF*> DataPoint(data.size() - 1);
+	for (size_t i = 0; i < DataPoint.size(); ++i)
+	{
+		DataPoint[i] = new QPointF[data[0].size()];
+		for (size_t j = 0; j < data[0].size(); ++j)
+			DataPoint[i][j] = QPointF(data[0][j], -data[i + 1][j]);
+	}
+
+	QPainter QP(this);
+	//QP.save();//√ë√Æ√µ√∞√†√≠√®√≤√º √≠√†√±√≤√∞√Æ√©√™√® painter
+	QP.setRenderHint(QPainter::Antialiasing, true);//√Ç√™√´√æ√∑√®√≤√º √±√£√´√†√¶√®√¢√†√≠√®√•
+	QP.setPen(QPen(Qt::red, 0, Qt::SolidLine));//√è√•√∞√Æ
+	
+	QP.scale(this->width() / (xmax - xmin), this->height() / (ymax - ymin));//√å√†√±√∏√≤√†√°√®√∞√Æ√¢√†√≠√®√•
+	QP.translate(-xmin, ymax);//√è√•√∞√•√¨√•√π√•√≠√®√•
+
+	for (const auto& pointarray : DataPoint)
+		QP.drawPolyline(pointarray, data[0].size());
+	
+	//QP.restore();//√Ç√Æ√±√±√≤√†√≠√Æ√¢√®√≤√º √≠√†√±√≤√∞√Æ√©√™√® painter
 
 	for (size_t i = 0; i < DataPoint.size(); ++i)
 		delete[] DataPoint[i];
