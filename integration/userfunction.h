@@ -52,7 +52,7 @@ namespace userfunction
 	class function_const :public function //a=const
 	{
 	private:
-		long double a;//�������� ���������
+		long double a;//значение константы
 	public:
 		function_const(const long double a) :function(), a(a) {}
 		virtual long double operator()(const std::vector<long double>& A)const noexcept override
@@ -64,7 +64,7 @@ namespace userfunction
 	class function_variable :public function //A[n]=double
 	{
 	private:
-		size_t n;//����� ����������
+		size_t n;//номер переменной
 	public:
 		function_variable(const size_t n) :function(), n(n) {}
 		virtual long double operator()(const std::vector<long double>& A)const override
@@ -73,6 +73,34 @@ namespace userfunction
 		}
 	};
 
-	std::unique_ptr<function> make_function(const std::string& s, const std::vector<std::string>& S);//��������� ������� ��� function
+	std::unique_ptr<function> make_function(const std::string& s, const std::vector<std::string>& S);//Фабричная функция для function
+
+}
+
+	class function_const :public function //a=const
+	{
+	private:
+		long double a;//çíà÷åíèå êîíñòàíòû
+	public:
+		function_const(const long double a) :function(), a(a) {}
+		virtual long double operator()(const std::vector<long double>& A)const noexcept override
+		{
+			return a;
+		}
+	};
+
+	class function_variable :public function //A[n]=double
+	{
+	private:
+		size_t n;//íîìåð ïåðåìåííîé
+	public:
+		function_variable(const size_t n) :function(), n(n) {}
+		virtual long double operator()(const std::vector<long double>& A)const override
+		{
+			return A[n];
+		}
+	};
+
+	std::unique_ptr<function> make_function(const std::string& s, const std::vector<std::string>& S);//Ôàáðè÷íàÿ ôóíêöèÿ äëÿ function
 
 }
