@@ -10,12 +10,12 @@ namespace userfunction
 {
 	std::unique_ptr<function> make_function(const std::string & s, const std::vector<std::string>& S)
 	{
-		std::vector<std::array<size_t, 2>> brackets;//индексы скобок
+		std::vector<std::array<size_t, 2>> brackets;//РёРЅРґРµРєСЃС‹ СЃРєРѕР±РѕРє
 		brackets.reserve(s.size());
-		std::stack<size_t *> ob;//стек указателей на индексы не закрытых скобок
-		for (auto i=s.find_first_of("()")//поиск первой скобки
-			;i!=s.npos//завершить цикл если скобок не найдено
-			;i=s.find_first_of("()",i+1))//поиск следующей скобки
+		std::stack<size_t *> ob;//СЃС‚РµРє СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° РёРЅРґРµРєСЃС‹ РЅРµ Р·Р°РєСЂС‹С‚С‹С… СЃРєРѕР±РѕРє
+		for (auto i=s.find_first_of("()")//РїРѕРёСЃРє РїРµСЂРІРѕР№ СЃРєРѕР±РєРё
+			;i!=s.npos//Р·Р°РІРµСЂС€РёС‚СЊ С†РёРєР» РµСЃР»Рё СЃРєРѕР±РѕРє РЅРµ РЅР°Р№РґРµРЅРѕ
+			;i=s.find_first_of("()",i+1))//РїРѕРёСЃРє СЃР»РµРґСѓСЋС‰РµР№ СЃРєРѕР±РєРё
 		switch(s[i])
 		{
 		case '(':
@@ -23,33 +23,33 @@ namespace userfunction
 			ob.push(&brackets.back()[1]);
 			break;
 		case ')':
-			if (ob.empty()) throw std::invalid_argument("скобки не согласованы");
+			if (ob.empty()) throw std::invalid_argument("СЃРєРѕР±РєРё РЅРµ СЃРѕРіР»Р°СЃРѕРІР°РЅС‹");
 			*ob.top() = i;
 			ob.pop();
 			break;
 		}
-		if (!ob.empty()) throw std::invalid_argument("скобки не согласованы");
+		if (!ob.empty()) throw std::invalid_argument("СЃРєРѕР±РєРё РЅРµ СЃРѕРіР»Р°СЃРѕРІР°РЅС‹");
 
-		size_t Nb = 0;//количество внешних скобок
+		size_t Nb = 0;//РєРѕР»РёС‡РµСЃС‚РІРѕ РІРЅРµС€РЅРёС… СЃРєРѕР±РѕРє
 		for (const auto& b : brackets)
 		if (std::regex_match(s.substr(0, b[0]), std::regex("[ \t\n\\(]*")) &&
 			std::regex_match(s.substr(b[1] + 1), std::regex("[ \t\n\\)]*")))
 			++Nb;
 		else break;
-		const size_t ns0 = Nb ? brackets[Nb-1][0] + 1 : 0;//номер первого символа внутри внешних скобок
-		const size_t nsk = Nb ? brackets[Nb-1][1] - 1 : s.size() - 1;//Номер последнего символа внутри внешних скобок
+		const size_t ns0 = Nb ? brackets[Nb-1][0] + 1 : 0;//РЅРѕРјРµСЂ РїРµСЂРІРѕРіРѕ СЃРёРјРІРѕР»Р° РІРЅСѓС‚СЂРё РІРЅРµС€РЅРёС… СЃРєРѕР±РѕРє
+		const size_t nsk = Nb ? brackets[Nb-1][1] - 1 : s.size() - 1;//РќРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р° РІРЅСѓС‚СЂРё РІРЅРµС€РЅРёС… СЃРєРѕР±РѕРє
 		
-		for (auto i = s.find_last_of("+-")//поиск последнего знака + или -
+		for (auto i = s.find_last_of("+-")//РїРѕРёСЃРє РїРѕСЃР»РµРґРЅРµРіРѕ Р·РЅР°РєР° + РёР»Рё -
 			; i != s.npos
-			; i = s.find_last_of("+-", i - 1))//поиск следующего знака + или -
-		//Если найденный знак находится не в скобках
+			; i = s.find_last_of("+-", i - 1))//РїРѕРёСЃРє СЃР»РµРґСѓСЋС‰РµРіРѕ Р·РЅР°РєР° + РёР»Рё -
+		//Р•СЃР»Рё РЅР°Р№РґРµРЅРЅС‹Р№ Р·РЅР°Рє РЅР°С…РѕРґРёС‚СЃСЏ РЅРµ РІ СЃРєРѕР±РєР°С…
 		if (!std::count_if(brackets.cbegin() + Nb, brackets.cend(),
 			[i](const std::array<size_t, 2> &b) {return i > b[0] && i < b[1]; } ))
 		{
 			const auto f1 = s.substr(ns0, i - ns0);
 			const auto f2 = s.substr(i + 1, nsk - i);
 			const auto op = s[i];
-			if(std::regex_match(f1, std::regex("[ \t\n]*")))//Унарная операция
+			if(std::regex_match(f1, std::regex("[ \t\n]*")))//РЈРЅР°СЂРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
 			switch (op)
 			{
 			case '+':
@@ -59,7 +59,7 @@ namespace userfunction
 				return std::make_unique<function_unary>(make_function(f2, S), std::negate<long double>());
 				break;
 			}
-			else switch (op)//Бинарная операция
+			else switch (op)//Р‘РёРЅР°СЂРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
 			{
 			case '+':
 				return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), std::plus<long double>());
@@ -70,10 +70,10 @@ namespace userfunction
 			}
 		}
 	
-		for (auto i = s.find_last_of("*/")//поиск последнего знака * или /
+		for (auto i = s.find_last_of("*/")//РїРѕРёСЃРє РїРѕСЃР»РµРґРЅРµРіРѕ Р·РЅР°РєР° * РёР»Рё /
 			; i != s.npos
-			; i = s.find_last_of("*/", i - 1))//поиск следующего знака * или /
-		//Если найденный знак находится не в скобках
+			; i = s.find_last_of("*/", i - 1))//РїРѕРёСЃРє СЃР»РµРґСѓСЋС‰РµРіРѕ Р·РЅР°РєР° * РёР»Рё /
+		//Р•СЃР»Рё РЅР°Р№РґРµРЅРЅС‹Р№ Р·РЅР°Рє РЅР°С…РѕРґРёС‚СЃСЏ РЅРµ РІ СЃРєРѕР±РєР°С…
 		if (!std::count_if(brackets.cbegin() + Nb, brackets.cend(),
 			[i](const std::array<size_t, 2> &b) {return i > b[0] && i < b[1]; }))
 		{
@@ -91,10 +91,10 @@ namespace userfunction
 			}
 		}
 
-		for (auto i = s.rfind('^')//поиск последнего знака ^
+		for (auto i = s.rfind('^')//РїРѕРёСЃРє РїРѕСЃР»РµРґРЅРµРіРѕ Р·РЅР°РєР° ^
 			; i != s.npos
-			; i = s.rfind('^', i - 1))//поиск следующего знака ^
-		//Если найденный знак находится не в скобках
+			; i = s.rfind('^', i - 1))//РїРѕРёСЃРє СЃР»РµРґСѓСЋС‰РµРіРѕ Р·РЅР°РєР° ^
+		//Р•СЃР»Рё РЅР°Р№РґРµРЅРЅС‹Р№ Р·РЅР°Рє РЅР°С…РѕРґРёС‚СЃСЏ РЅРµ РІ СЃРєРѕР±РєР°С…
 		if (!std::count_if(brackets.cbegin() + Nb, brackets.cend(),
 			[i](const std::array<size_t, 2> &b) {return i > b[0] && i < b[1]; }))
 		{
@@ -103,24 +103,101 @@ namespace userfunction
 			return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), (long double(*)(long double, long double))&pow);
 		}
 
-		const auto sv = s.substr(ns0, nsk + 1 - ns0);//Строка внутри внешних скобок
-		std::smatch m;//для возвращаемой информации
-		//если sv функция
+		const auto sv = s.substr(ns0, nsk + 1 - ns0);//РЎС‚СЂРѕРєР° РІРЅСѓС‚СЂРё РІРЅРµС€РЅРёС… СЃРєРѕР±РѕРє
+		std::smatch m;//РґР»СЏ РІРѕР·РІСЂР°С‰Р°РµРјРѕР№ РёРЅС„РѕСЂРјР°С†РёРё
+		//РµСЃР»Рё sv С„СѓРЅРєС†РёСЏ
 		if (std::regex_match(sv, m, std::regex("[ \t\n]*(\\w+)[ \t\n]*\\(((.|\n)+)\\)[ \t\n]*")))
 		if (m[1].str() == "sin")
 			return std::make_unique<function_unary>(make_function(m[2].str(), S), (long double(*)(long double))&sin);
 		else if (m[1].str() == "cos")
 			return std::make_unique<function_unary>(make_function(m[2].str(), S), (long double(*)(long double))&cos);
-		else throw std::invalid_argument("Неизвестная функция " + m[1].str());
-		//Если sv число
+		else throw std::invalid_argument("РќРµРёР·РІРµСЃС‚РЅР°СЏ С„СѓРЅРєС†РёСЏ " + m[1].str());
+		//Р•СЃР»Рё sv С‡РёСЃР»Рѕ
 		if(std::regex_match(sv, m, std::regex("[ \t\n]*([[:digit:]]*\\.?[[:digit:]]+)[ \t\n]*")))
 			return std::make_unique<function_const>(std::stold(m[1].str()));
-		//Если sv переменная
+		//Р•СЃР»Рё sv РїРµСЂРµРјРµРЅРЅР°СЏ
 		for (auto i = 0; i < S.size(); ++i)
 		if (std::regex_match(sv, std::regex("[ \t\n]*(" + S[i] + ")[ \t\n]*")))
 			return std::make_unique<function_variable>(i);
 
-		throw std::invalid_argument("Неизвестная переменная " + sv);
+		throw std::invalid_argument("РќРµРёР·РІРµСЃС‚РЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ " + sv);
+
+		//return std::unique_ptr<functional>();
+	}
+}
+			const auto op = s[i];
+			if(std::regex_match(f1, std::regex("[ \t\n]*")))//Г“Г­Г Г°Г­Г Гї Г®ГЇГҐГ°Г Г¶ГЁГї
+			switch (op)
+			{
+			case '+':
+				return make_function(f2, S);
+				break;
+			case '-':
+				return std::make_unique<function_unary>(make_function(f2, S), std::negate<long double>());
+				break;
+			}
+			else switch (op)//ГЃГЁГ­Г Г°Г­Г Гї Г®ГЇГҐГ°Г Г¶ГЁГї
+			{
+			case '+':
+				return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), std::plus<long double>());
+				break;
+			case '-':
+				return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), std::minus<long double>());
+				break;
+			}
+		}
+	
+		for (auto i = s.find_last_of("*/")//ГЇГ®ГЁГ±ГЄ ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® Г§Г­Г ГЄГ  * ГЁГ«ГЁ /
+			; i != s.npos
+			; i = s.find_last_of("*/", i - 1))//ГЇГ®ГЁГ±ГЄ Г±Г«ГҐГ¤ГіГѕГ№ГҐГЈГ® Г§Г­Г ГЄГ  * ГЁГ«ГЁ /
+		//Г…Г±Г«ГЁ Г­Г Г©Г¤ГҐГ­Г­Г»Г© Г§Г­Г ГЄ Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГҐ Гў Г±ГЄГ®ГЎГЄГ Гµ
+		if (!std::count_if(brackets.cbegin() + Nb, brackets.cend(),
+			[i](const std::array<size_t, 2> &b) {return i > b[0] && i < b[1]; }))
+		{
+			const auto f1 = s.substr(ns0, i - ns0);
+			const auto f2 = s.substr(i + 1, nsk - i);
+			const auto op = s[i];
+			switch (op)
+			{
+			case '*':
+				return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), std::multiplies<long double>());
+				break;
+			case '/':
+				return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), std::divides<long double>());
+				break;
+			}
+		}
+
+		for (auto i = s.rfind('^')//ГЇГ®ГЁГ±ГЄ ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® Г§Г­Г ГЄГ  ^
+			; i != s.npos
+			; i = s.rfind('^', i - 1))//ГЇГ®ГЁГ±ГЄ Г±Г«ГҐГ¤ГіГѕГ№ГҐГЈГ® Г§Г­Г ГЄГ  ^
+		//Г…Г±Г«ГЁ Г­Г Г©Г¤ГҐГ­Г­Г»Г© Г§Г­Г ГЄ Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГҐ Гў Г±ГЄГ®ГЎГЄГ Гµ
+		if (!std::count_if(brackets.cbegin() + Nb, brackets.cend(),
+			[i](const std::array<size_t, 2> &b) {return i > b[0] && i < b[1]; }))
+		{
+			const auto f1 = s.substr(ns0, i - ns0);
+			const auto f2 = s.substr(i + 1, nsk - i);
+			return std::make_unique<function_binary>(make_function(f1, S), make_function(f2, S), (long double(*)(long double, long double))&pow);
+		}
+
+		const auto sv = s.substr(ns0, nsk + 1 - ns0);//Г‘ГІГ°Г®ГЄГ  ГўГ­ГіГІГ°ГЁ ГўГ­ГҐГёГ­ГЁГµ Г±ГЄГ®ГЎГ®ГЄ
+		std::smatch m;//Г¤Г«Гї ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г®Г© ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ
+		//ГҐГ±Г«ГЁ sv ГґГіГ­ГЄГ¶ГЁГї
+		if (std::regex_match(sv, m, std::regex("[ \t\n]*(\\w+)[ \t\n]*\\(((.|\n)+)\\)[ \t\n]*")))
+		if (m[1].str() == "sin")
+			return std::make_unique<function_unary>(make_function(m[2].str(), S), (long double(*)(long double))&sin);
+		else if (m[1].str() == "cos")
+			return std::make_unique<function_unary>(make_function(m[2].str(), S), (long double(*)(long double))&cos);
+		else throw std::invalid_argument("ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г Гї ГґГіГ­ГЄГ¶ГЁГї " + m[1].str());
+		//Г…Г±Г«ГЁ sv Г·ГЁГ±Г«Г®
+		if(std::regex_match(sv, m, std::regex("[ \t\n]*([[:digit:]]*\\.?[[:digit:]]+)[ \t\n]*")))
+			return std::make_unique<function_const>(std::stold(m[1].str()));
+		//Г…Г±Г«ГЁ sv ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї
+		for (auto i = 0; i < S.size(); ++i)
+		if (std::regex_match(sv, std::regex("[ \t\n]*(" + S[i] + ")[ \t\n]*")))
+			return std::make_unique<function_variable>(i);
+
+		throw std::invalid_argument("ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї " + sv);
 
 		//return std::unique_ptr<functional>();
 	}
